@@ -18,7 +18,7 @@ resource "aws_iam_role" "example" {
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
-  role       = arn:aws:iam::850874729072:role/Mario
+  role       = aws_iam_role.example.name
 }
 
 #get vpc data
