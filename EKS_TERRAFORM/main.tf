@@ -35,7 +35,7 @@ data "aws_subnets" "public" {
 #cluster provision
 resource "aws_eks_cluster" "example" {
   name     = "EKS_CLOUD"
-  role_arn = arn:aws:iam::850874729072:role/Mario
+  role_arn = aws_iam_role.example.arn
 
   vpc_config {
     subnet_ids = data.aws_subnets.public.ids
@@ -65,17 +65,17 @@ resource "aws_iam_role" "example1" {
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEKSWorkerNodePolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = arn:aws:iam::850874729072:role/Mario
+  role       = aws_iam_role.example1.name
 }
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEKS_CNI_Policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = arn:aws:iam::850874729072:role/Mario
+  role       = aws_iam_role.example1.name
 }
 
 resource "aws_iam_role_policy_attachment" "example-AmazonEC2ContainerRegistryReadOnly" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = arn:aws:iam::850874729072:role/Mario
+  role       = aws_iam_role.example1.name
 }
 
 #create node group
